@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>TP table Multiplication / Addition / Division / Soustraction / Modulo</title>
+  </head>
+  <body>
+
+      <div class="container pt-5">
+          <div class="row pb-5">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">
+                    <input type="number" class="form-control"  min="1" placeholder="La limite de  l'opération" max="200" id="limit" value="">
+                  </div>
+                  <div class="col-md-8">
+                      <select class="form-control" name="" id="signeSelector">
+                        <option value="">Choisissez un signe</option>
+                        <option value="+">Addition</option>
+                        <option value="-">Soustraction</option>
+                        <option value="*">Multiplication</option>
+                        <option value="/">Division</option>
+                        <option value="%">Modulo</option>
+                      </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12 pt-2">
+                  <div class="card">
+                      <table class="table table-striped table-bordered mb-0"  id="result_table"></table>
+                      <div class="" id="error"></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <!-- Inclusion du script js -->
+    <script src="tp.js"></script>
+    <script>
+
+        //  On récupère la liste de nos balises d'action , la balise qui gardera les erreurs,
+        //  la balise qui servira d'opérateur et la balise qui gardera le rendu de la fonction
+        var error = document.getElementById('error');
+        var signeSelector = document.getElementById('signeSelector');
+        var result_table = document.getElementById('result_table');
+        var limit = document.getElementById('limit');
+
+        //  On écoute le changement de notre balise de signe
+        signeSelector.addEventListener('change',function(){
+          //  On test l'existance d'un signe
+            if(this.value != '' && limit.value != ''){
+              // Si le signe existe alors on vide les balises d'erreurs et on lance la fonction
+              error.textContent = '';
+              error.className = ""
+              // on affiche le résultat
+              show_table_with_content(this.value, result_table, limit.value)
+            }
+            else{
+              //  Si le signe n'existe pas alors on vide le contenu du résultat et on affiche l'erreur en
+              //  en lui donnant une liste de nom de classe bootstrap
+              result_table.innerHTML = "";
+              error.textContent ="Veuillez choisir un signe d'opération";
+              error.className = "alert alert-warning"
+            }
+        });
+    </script>
+
+  </body>
+</html>
